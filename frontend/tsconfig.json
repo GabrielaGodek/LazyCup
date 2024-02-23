@@ -1,19 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "noImplicitAny": false,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@vueuse/core": ["node_modules/@vueuse/core/index.d.ts"]
+    },
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "outDir": "./dist",
+    "types": [
+      "vue",
+      "vue-simple-password-meter"
+    ],
 
     /* Linting */
     "strict": true,
@@ -21,6 +32,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src/**/*"],
+   "exclude": ["node_modules", "src/**/*.spec.ts"],
+    "references": [{ "path": "./tsconfig.node.json" }]
 }
