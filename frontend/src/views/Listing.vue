@@ -5,7 +5,7 @@ import { useProductsStore } from '@/stores/products';
 // import { ProductData } from '@/utils/types'
 
 export default defineComponent({
-  name: 'productsView',
+  name: 'ListingView',
   components: {
     TileItem
   },

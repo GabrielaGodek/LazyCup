@@ -36,8 +36,8 @@ export default defineComponent({
     setup(props) {
         const coffee = ref()
         const router = useRouter()
-
         coffee.value = props.data
+        
         const getDiff = (salePrice: number, price: number): number => {
             return 100 - ((salePrice * 100) / price)
         }

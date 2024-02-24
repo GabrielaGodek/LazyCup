@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue';
 import HeroIcon from '../components/HeroIcon.vue'
 export default defineComponent({
-  name: "homeView",
+  name: "HomeView",
   components: {
     HeroIcon
   }

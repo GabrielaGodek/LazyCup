@@ -6,11 +6,7 @@ export default defineComponent({
   name: 'App',
   components: {
     navigationItem
-  },
-  setup() {
   }
-
-
 })
 </script>
 <template>

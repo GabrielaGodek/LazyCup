@@ -35,9 +35,6 @@
 </template>
 <script lang="ts">
 export default {
-name: 'heroIcon'
+    name: 'HeroIcon'
 }
 </script>
-<style lang="">
-    
-</style>

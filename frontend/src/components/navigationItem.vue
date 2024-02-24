@@ -50,14 +50,12 @@
             </a>
         </nav>
         <!-- nav - end -->
-</div></template>
+    </div>
+</template>
 <script>
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'navigation'
+    name: 'NavigationItem'
 })
 </script>
-<style lang="">
-    
-</style>
