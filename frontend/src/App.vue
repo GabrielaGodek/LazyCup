@@ -1,11 +1,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import navigationItem from './components/navigationItem.vue'
+import NavigationItem from '@/components/NavigationItem.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    navigationItem
+    NavigationItem
   }
 })
 </script>

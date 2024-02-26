@@ -11,7 +11,8 @@ export default {
       'primary': '#BCBAB8',
       'secondary': '#9D8F8F',
       'detail': '#625757',
-      'error': '#EA4335'
+      'error': '#EA4335',
+      'success': '#004D40'
 
     },
   },

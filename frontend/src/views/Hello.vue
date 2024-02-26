@@ -20,7 +20,9 @@ export default defineComponent({
             <h1 class="mb-8 text-4xl font-bold text-black sm:text-5xl md:mb-12 md:text-6xl">Revolutionary way to order coffee</h1>
           </div>
            <div class=" flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
-            <a href="#" class="inline-block text-base rounded-lg bg-detail px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-detail transition duration-100 hover:detail focus-visible:ring active:bg-detail md:text-base">Order your coffee</a>
+            <router-link aria-label="Click here to order" :to="{ name: 'ListingView' }">
+              <div class="inline-block text-base rounded-lg bg-detail px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-detail transition duration-100 hover:detail focus-visible:ring active:bg-detail md:text-base">Order your coffee</div>
+            </router-link>
           </div>
 
         </div>

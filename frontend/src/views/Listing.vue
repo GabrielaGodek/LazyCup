@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import TileItem from '../components/TileItem.vue'
+import TileItem from '@/components/TileItem.vue';
+
 import { useProductsStore } from '@/stores/products';
 // import { ProductData } from '@/utils/types'
 
@@ -14,8 +15,8 @@ export default defineComponent({
     const productsData = ref([]);
 
     onMounted(async () => {
-      const products = await store.useFetch();
-      productsData.value = (products as any).data;
+      const products = await store.useFetch('http://localhost:3030/api/products');
+      productsData.value = products as any;
     });
 
     return {

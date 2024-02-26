@@ -43,7 +43,7 @@ export default defineComponent({
         }
         const moveToPage = (id: number) => {
             router.push({
-                name: 'productView',
+                name: 'ProductView',
                 params: { id: id }
             })
         }

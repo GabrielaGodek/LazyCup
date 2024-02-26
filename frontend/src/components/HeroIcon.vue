@@ -1,6 +1,6 @@
 <template>
     <div class="h-full w-full object-cover object-center">
-        <router-link aria-label="Click here to order" :to="{ name: 'productsView' }">
+        <router-link aria-label="Click here to order" :to="{ name: 'ListingView' }">
             <svg width="100%" height="100%" viewBox="0 0 1024.00 1024.00" class="icon" version="1.1"
                 xmlns="http://www.w3.org/2000/svg" fill="#262626" stroke="#262626" stroke-width="0.01024"
                 transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)">

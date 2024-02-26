@@ -1,6 +1,8 @@
 {
     "cSpell.ignoreWords": [
-        "lazycoffees"
+        "Persistedstate",
+        "lazycoffees",
+        "vuetify"
     ],
     "git.ignoreLimitWarning": true
 }

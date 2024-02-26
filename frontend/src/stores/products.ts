@@ -1,28 +1,35 @@
 
 import { defineStore } from 'pinia'
-import { ProductData, ProductsState } from '@/utils/types'
+import { ProductData } from '@/utils/types'
 
 export const useProductsStore = defineStore('products', {
-  state: (): ProductsState => ({
-    products: [],
-  }),
-  // getters: {
-  //     getProducts(state){
-  //         return state.products
-  //       }
-  //   },
+  state: () => {
+    return {
+      products: [] as ProductData[],
+      // orders: [] as Order[]
+    }
+  },
+  getters: {
+      getProducts(state){
+          return state.products
+        }
+    },
   actions: {
-    async useFetch() {
+    async useFetch(url:string) {
       try {
-       const response = await fetch('http://localhost:3030/api/products');
-        this.products = await response.json()
-        // const data = await response.json();
-        return this.products as ProductData[];
+       const response = await fetch(url);
+        this.products = (await response.json()).data
+        return this.products;
       } catch (error) {
         
         
         return error
       }
     },
+    // addToCart(product: Order){
+    //   console.log(product)
+
+    // }
   },
+  // persist: true,
 })
