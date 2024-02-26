@@ -1,23 +1,21 @@
-
-import { defineStore } from 'pinia'
-// import { useProductsStore } from './products'
-import { Order } from '@/utils/types'
-import { localCartStorage } from '../utils/types'
-
+import { defineStore } from 'pinia';
+import { Order, CartState } from '@/utils/types';
 
 export const useCartStore = defineStore('cart', {
-  state: () => {
-    return {
-    //   products: [] as ProductData[],
-      orders: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? {},
-    }
-  },
+  state: (): CartState => {
+    return{
+    // orders: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? [],
+    orders: [] as Order[]
+  }
+},
+  getters: {
+      getCart(state: { orders: any; }){
+          return state.orders
+        }
+    },
   actions: {
-
-    addItem(product: Order){
-      console.log(product)
-
+    addItem(product: Order): void {
+      this.orders.push(product);
     }
   },
-//   persist: true,
 })

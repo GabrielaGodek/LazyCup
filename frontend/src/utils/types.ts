@@ -13,6 +13,9 @@ export interface ProductData {
 export interface ProductsState {
   products: ProductData[];
 }
+export interface CartState {
+  orders: Order[];
+}
 
 export type AvailableSizes = 'S' | 'M' | 'L'
 

@@ -6,7 +6,6 @@ export const useProductsStore = defineStore('products', {
   state: () => {
     return {
       products: [] as ProductData[],
-      // orders: [] as Order[]
     }
   },
   getters: {
@@ -26,10 +25,5 @@ export const useProductsStore = defineStore('products', {
         return error
       }
     },
-    // addToCart(product: Order){
-    //   console.log(product)
-
-    // }
   },
-  // persist: true,
 })

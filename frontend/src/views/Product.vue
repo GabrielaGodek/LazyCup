@@ -145,7 +145,12 @@ export default defineComponent({
     const showErrorSizeMsg = ref(false)
     
     const getProduct = computed(() => {
-      return store.products.find(el => el.id === coffeeId);
+      const findProduct = store.products.find(el => el.id === coffeeId)
+      if(!findProduct){
+        console.log('fetching from api')
+        store.useFetch(`http://localhost:3030/api/products/${coffeeId}`)
+      }
+      return findProduct
     });
     const selectedSize = ref()
     const sizes: AvailableSizes[] = [
@@ -167,7 +172,9 @@ export default defineComponent({
   
         cart.addItem(productToOrder)
         showErrorSizeMsg.value = false
-        // router.push()
+        router.push({
+          name: 'CartView'
+        })
       } else {
         showErrorSizeMsg.value = !showErrorSizeMsg.value
       }
