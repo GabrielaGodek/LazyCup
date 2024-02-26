@@ -41,11 +41,13 @@
               <span class="subheading">Select size</span>
 
               <v-chip-group v-model="selectedSize" selected-class="text-green-darken-3" mandatory>
-                <v-chip v-for="size in sizes" :key="size" :value="size" size="large" density="comfortable" variant="outlined">
+                <v-chip v-for="size in sizes" :key="size" :value="size" size="large" density="comfortable"
+                  variant="outlined">
                   {{ size }}
                 </v-chip>
               </v-chip-group>
             </v-card-text>
+            <p class="text-error" v-show="showErrorSizeMsg">Select size!</p>
 
 
           </div>
@@ -64,13 +66,47 @@
 
 
           <div class="flex gap-2.5">
-            <div @click="addToCart(getProduct)"
-              class="inline-block flex-1 rounded-lg text-secondary px-8 py-3 text-center text-sm font-semibold text-base outline-none ring-detail transition duration-100 hover:bg-success focus-visible:ring active:bg-secondary sm:flex-none ">
+            <div v-if="amount > 0">
+              <!-- <input type="button" value="-" @click="amount--">
+              <input type="number" :value=amount>
+              <input type="button" value="+" @click="amount++"> -->
+
+              <form class="max-w-xs mx-auto  ">
+                <div class="relative flex items-center w-42 max-w-[8rem]">
+                  <button @click="amount--" type="button" id="decrement-button"
+                    data-input-counter-decrement="quantity-input"
+                    class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-9 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h16" />
+                    </svg>
+                  </button>
+                  <input :value=amount type="text" id="quantity-input" data-input-counter
+                    aria-describedby="helper-text-explanation"
+                    class="border-primary h-9 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="999" required />
+                  <button value="+" @click="amount++" type="button" id="increment-button"
+                    data-input-counter-increment="quantity-input"
+                    class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-9 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none">
+                    <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 1v16M1 9h16" />
+                    </svg>
+                  </button>
+                </div>
+
+              </form>
+
+            </div>
+            <div v-else @click="amount++"
+              class="h-9 w-42 max-w-[8rem] flex justify-center align-center flex-1 rounded-lg text-secondary px-8 py-3 text-center text-sm font-semibold text-base outline-none ring-detail transition duration-100 hover:bg-success focus-visible:ring active:bg-secondary sm:flex-none ">
               Add
               to cart</div>
 
             <div @click="formatOrder(getProduct)"
-              class="inline-block rounded-lg bg-secondary  px-8 py-3 text-center text-sm font-semibold text-base outline-none ring-detail transition duration-100 hover:bg-success focus-visible:ring active:text-secondary ">
+              class="h-9 w-48 flex justify-center align-center rounded-lg bg-secondary text-center text-sm font-semibold text-base outline-none ring-detail transition duration-100 hover:bg-success focus-visible:ring active:text-secondary ">
               Buy
               now</div>
           </div>
@@ -85,7 +121,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, ref, computed } from 'vue';
 import { useRouter } from 'vue-router'
 import { useProductsStore } from '@/stores/products';
 import { useCartStore } from '@/stores/cart';
@@ -98,11 +134,19 @@ export default defineComponent({
     NotFoundItem
   },
   setup() {
-    const getProduct = ref<ProductData | null>(null);
-    const router = useRouter()
-    const coffeeId = Number(router.currentRoute.value.params.id)
+    const store = useProductsStore();
     const cart = useCartStore();
 
+    const router = useRouter()
+    
+    const coffeeId = Number(router.currentRoute.value.params.id)
+    
+    const amount = ref(0)
+    const showErrorSizeMsg = ref(false)
+    
+    const getProduct = computed(() => {
+      return store.products.find(el => el.id === coffeeId);
+    });
     const selectedSize = ref()
     const sizes: AvailableSizes[] = [
       'S',
@@ -113,35 +157,22 @@ export default defineComponent({
       return 100 - ((salePrice * 100) / price)
     }
     const formatOrder = (product: ProductData) => {
-      const productToOrder: Order = {
-        ...product,
-        date: new Date().toLocaleString(),
-        amount: 1,
-        size: selectedSize.value
+      if(selectedSize.value !== undefined){
+        const productToOrder: Order = {
+          ...product,
+          date: new Date().toLocaleString(),
+          amount: amount.value !== 0 ? amount.value : 1,
+          size: selectedSize.value
+        }
+  
+        cart.addItem(productToOrder)
+        showErrorSizeMsg.value = false
+        // router.push()
+      } else {
+        showErrorSizeMsg.value = !showErrorSizeMsg.value
       }
 
-      cart.addItem(productToOrder)
-
-      // router.push()
     }
-
-    const addToCart = (product: ProductData) => {
-      const productToOrder: Order = {
-        ...product,
-        date: new Date().toLocaleString(),
-        amount: 1,
-        size: selectedSize.value
-      }
-
-      cart.addItem(productToOrder)
-    }
-
-
-    onMounted(() => {
-      const store = useProductsStore();
-      getProduct.value = store.products.find(el => el.id === coffeeId) || null
-      // console.log(getProduct.value)
-    });
 
     return {
       getProduct,
@@ -149,12 +180,11 @@ export default defineComponent({
       cart,
       formatOrder,
       selectedSize,
-      addToCart,
-      sizes
+      sizes,
+      amount,
+      showErrorSizeMsg
     };
   }
 })
 </script>
-<style>
-
-</style>
+<style></style>

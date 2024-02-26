@@ -4,7 +4,7 @@ import { useProductsStore } from '../stores/products'
 import { localCartStorage, localProductsStorage } from '../utils/types'
 
 
-export function usePersistCart() {
+export function usePersistState() {
   const cartStore = useCartStore()
   const productsStore = useProductsStore()
 
@@ -15,6 +15,17 @@ export function usePersistCart() {
     localStorage.setItem(localProductsStorage, JSON.stringify(productsStore.products))
   })
 
+// onMounted(async () => {
+//     const localCartData = localStorage.getItem(localCartStorage)
+//     const localProductsData = localStorage.getItem(localProductsStorage)
+
+//     if (!localCartData || !localProductsData) {
+//       await productsStore.useFetch('http://localhost:3030/api/products')
+//     } else {
+//       // cartStore.setOrders(JSON.parse(localCartData))
+//       // productsStore.setProducts(JSON.parse(localProductsData))
+//     }
+//   })
   onUnmounted(() => {
     localStore_Cart()
     localStore_Products()

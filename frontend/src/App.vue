@@ -1,11 +1,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import NavigationItem from '@/components/NavigationItem.vue'
+import { usePersistState } from '@/composables/usePersistState'
+import { useProductsStore } from './stores/products';
+// import { useCartStore } from './stores/cart';
 
 export default defineComponent({
   name: 'App',
   components: {
     NavigationItem
+  },
+  setup() {
+    const store = useProductsStore()
+    store.useFetch('http://localhost:3030/api/products');
+    usePersistState()
   }
 })
 </script>
