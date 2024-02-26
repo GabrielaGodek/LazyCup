@@ -15,14 +15,14 @@ SPA application expanding skills in creating reusable components, passing props,
 - `/src/store` - Pinia assets.
 
 ## Dependencies
+- Vite: `^4.3.5`
 - Vue.js: `^3.3.4`
 - Vue Router: `^4.2.2`
 - Pinia: `^2.0.36`
-- Vite: `^4.3.5`
 <!-- - Vitest: `^0.34.6` -->
-- Vitest/coverage-v8: `^^0.34.6`
-- Sass: `^1.63.3`
-- Fontawesome: `^3.0.3`
+<!-- - Vitest/coverage-v8: `^^0.34.6` -->
+<!-- - Sass: `^1.63.3` -->
+<!-- - Fontawesome: `^3.0.3` -->
 
 <!-- ## Unit Tests
 This project uses [Vitest](https://github.com/vitejs/vitest) for unit testing. Unit tests are essential to ensure the correctness and reliability of individual components within the application.

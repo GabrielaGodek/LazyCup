@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
-import { Order, CartState } from '@/utils/types';
+import { Order, CartState, localCartStorage } from '@/utils/types';
 
 export const useCartStore = defineStore('cart', {
   state: (): CartState => {
     return{
-    // orders: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? [],
-    orders: [] as Order[]
+    orders: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? [],
+    // orders: [] as Order[]
   }
 },
   getters: {

@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { useCartStore } from '@/stores/cart';
+import { defineComponent, computed, onMounted, ref } from 'vue'
+import { useCartStore } from '@/stores/cart'
 import { Order } from '@/utils/types'
 
 import CartItem from '@/components/CartItem.vue'
@@ -12,17 +12,27 @@ export default defineComponent({
     },
     setup() {
         const cart = useCartStore()
-        const orders = cart.orders
-        // const totalPriceSum = ref(0)
+       const orders = ref<Order[]>([]);
 
-        const totalPriceSum = computed(() => {
-            return orders.reduce((acc: number, order: Order) => acc + ((order.salePrice > 0 ? order.salePrice : order.price) * order.amount!), 0);
-        })
+   const totalPriceSum = computed(() => {
+            return orders.value.reduce((acc: number, order: Order) => {
+                const price = order.salePrice > 0 ? order.salePrice : order.price;
+                return acc + (price * order.amount!);
+            }, 0)
+        });
 
         const totalDiscountSum = computed(() => {
-            return orders.reduce((acc: number, order: Order) => acc + ((order.salePrice > 0 ? order.salePrice : order.price) * order.amount!), 0);
+            return orders.value.reduce((acc: number, order: Order) => {
+                const price = order.price;
+                return acc + (price * order.amount!);
+            }, 0) - totalPriceSum.value;
         })
 
+        console.log(totalPriceSum.value)
+        
+        onMounted(() => {
+            orders.value = cart.orders
+        })
         return {
             orders,
             totalPriceSum,
@@ -43,16 +53,15 @@ export default defineComponent({
 
             <div class="mb-5 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
                 <cart-item v-for="order in orders" :key="order.id" :data="order" />
-                <!-- <cart-item v-for="order in orders" :key="order.id" :data="order" @itemTotalPrice="handleItemTotalPrice" /> -->
             </div>
 
             <!-- totals - start -->
             <div class="flex flex-col items-end gap-4">
                 <div class="w-full rounded-lg bg-gray-100 p-4 sm:max-w-xs">
                     <div class="space-y-1">
-                        <div class="flex justify-between gap-4 text-gray-500">
+                        <div class="flex justify-between gap-4 text-gray-500" v-show="totalDiscountSum">
                             <span>Discount</span>
-                            <span>$129.99</span>
+                            <span>{{ totalDiscountSum }} PLN</span>
                         </div>
 
 
@@ -71,7 +80,7 @@ export default defineComponent({
                 </div>
 
                 <button
-                    class="inline-block rounded-lg bg-indigo-500 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-indigo-600 focus-visible:ring active:bg-indigo-700 md:text-base">Check
+                    class="inline-block rounded-lg bg-success px-8 py-3 text-center text-sm font-semibold text-white outline-none  transition duration-100 hover:bg-secondary focus-visible:ring active:bg-secondary md:text-black">Check
                     out</button>
             </div>
             <!-- totals - end -->

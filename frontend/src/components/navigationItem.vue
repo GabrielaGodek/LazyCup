@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white pt-12 sm:pt-16 lg:pt-24">
+    <div class="bg-white ">
         <!-- nav - start -->
         <nav
             class="sticky bottom-0 mx-auto flex w-full justify-between gap-8 border-t bg-white px-10 pt-5 pb-3 text-xs sm:max-w-md sm:rounded-t-xl sm:border-l sm:border-r sm:text-sm">

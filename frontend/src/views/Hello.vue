@@ -17,7 +17,7 @@ export default defineComponent({
         <div class="mb-12 flex flex-col justify-between lg:justify-end xl:w-5/12">
           <div class="sm:text-center lg:pt-12 lg:pb-6 lg:text-left xl:pt-24 xl:pb-12">
             <p class="mb-4 font-semibold text-detail md:mb-6 md:text-lg xl:text-xl">LazyCup</p>
-            <h1 class="mb-8 text-4xl font-bold text-black sm:text-5xl md:mb-12 md:text-6xl">Revolutionary way to order coffee</h1>
+            <h1 class="mb-8 text-4xl font-bold text-black sm:text-5xl md:mb-12 md:text-6xl">Your way to order coffee</h1>
           </div>
            <div class=" flex flex-col gap-2.5 sm:flex-row sm:justify-center lg:justify-start">
             <router-link aria-label="Click here to order" :to="{ name: 'ListingView' }">
