@@ -1,6 +1,7 @@
-# LazyCup
+# Rewriting old application `https://github.com/GabrielaGodek/-old-LazyCup`
 
-SPA application expanding skills in creating reusable components, passing props, and effective state management. Additionally, it emphasizes the importance of writing unit tests and creating snapshots.
+# LazyCup
+A full-stack application expanding skills in creating reusable components, passing props, and effective state management. Utilized MySQL database for robust data storage and management. Styled with Tailwind CSS and integrated components from Flowrift and Vuetify for enhanced design and functionality.
 
 ## Installation
 
@@ -9,8 +10,18 @@ SPA application expanding skills in creating reusable components, passing props,
 3. Run `docker compose up -d`
 4. Open app with `http://localhost:5173/`
 
-## Structure
+## Dependencies
+- Vite: `^4.3.5`
+- Vue.js: `^3.3.4`
+- Vue Router: `^4.2.2`
+- Pinia: `^2.0.36`
+- Vuetify: `^3.5.6`
+- Tailwindcss: `^3.4.1`
+- TypeScript: `^5.2.2`
+- Express: `^4.18.2`
+- Mysql2: `^3.9.1`
 
+## Structure
 - [**backend**](backend)
   - [**server**](backend/server)
     - [**controllers**](backend/server/controllers)
@@ -25,17 +36,6 @@ SPA application expanding skills in creating reusable components, passing props,
     - [**utils**](frontend/src/utils)
     - [**views**](frontend/src/views)
 
-## Dependencies
-
-- Vite: `^4.3.5`
-- Vue.js: `^3.3.4`
-- Vue Router: `^4.2.2`
-- Pinia: `^2.0.36`
-- Vuetify: `^3.5.6`
-- Tailwindcss: `^3.4.1`
-- TypeScript: `^5.2.2`
-- Express: `^4.18.2`
-- Mysql2: `^3.9.1`
 
 ## API Endpoints
 
