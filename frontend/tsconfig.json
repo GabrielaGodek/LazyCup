@@ -22,8 +22,7 @@
     "noEmit": true,
     "jsx": "preserve",
     "types": [
-      "vue",
-      "vue-simple-password-meter"
+      "vue"
     ],
 
     /* Linting */
