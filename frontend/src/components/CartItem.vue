@@ -66,18 +66,16 @@ export default defineComponent({
     props: {
         data: Object as PropType<Order>
     },
-    // emits: ['itemTotalPrice'],
     setup(props, { emit }) {
         const data = props.data
         const cart = useCartStore()
-        const cartOrders = cart.orders
+        const cartOrders = cart.cart
         const quantity = ref(data ? data.amount : 1)
         const totalPrice = computed(() => {
             if (data && quantity.value !== undefined && typeof quantity.value === 'number') {
                 const targetIndex = cartOrders.findIndex((el: Order) => el.id === data.id);
                 if (targetIndex !== -1) {
                     cartOrders[targetIndex].amount = quantity.value
-                    // console.log(cartOrders[targetIndex])
                 }
                 return quantity.value * (data.salePrice > 0 ? data.salePrice : data.price);
             }

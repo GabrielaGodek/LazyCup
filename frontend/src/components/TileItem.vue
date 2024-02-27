@@ -25,9 +25,11 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import type { PropType } from 'vue'
+
 import { ProductData } from '../utils/types'
+
+import { useRouter } from 'vue-router'
 export default defineComponent({
     name: 'TileItem',
     props: {
@@ -35,8 +37,8 @@ export default defineComponent({
     },
     setup(props) {
         const coffee = ref()
-        const router = useRouter()
         coffee.value = props.data
+        const router = useRouter()
         
         const getDiff = (salePrice: number, price: number): number => {
             return 100 - ((salePrice * 100) / price)

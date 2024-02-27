@@ -1,7 +1,9 @@
 <script lang="ts">
 import { defineComponent, computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { Order } from '@/utils/types'
+import { useOrdersStore } from '@/stores/orders'
+import { Order, OrderData } from '@/utils/types'
 
 import CartItem from '@/components/CartItem.vue'
 
@@ -12,31 +14,52 @@ export default defineComponent({
     },
     setup() {
         const cart = useCartStore()
-       const orders = ref<Order[]>([]);
+        const orders = useOrdersStore()
+        const draftOrders = ref<Order[]>([]);
 
-   const totalPriceSum = computed(() => {
-            return orders.value.reduce((acc: number, order: Order) => {
+        const router = useRouter()
+
+        const totalPriceSum = computed(() => {
+            return draftOrders.value.reduce((acc: number, order: Order) => {
                 const price = order.salePrice > 0 ? order.salePrice : order.price;
                 return acc + (price * order.amount!);
             }, 0)
         });
 
         const totalDiscountSum = computed(() => {
-            return orders.value.reduce((acc: number, order: Order) => {
+            return draftOrders.value.reduce((acc: number, order: Order) => {
                 const price = order.price;
                 return acc + (price * order.amount!);
             }, 0) - totalPriceSum.value;
         })
 
-        console.log(totalPriceSum.value)
-        
+        const madeOrder = () => {
+            const formattedOrders: OrderData[] = []
+            draftOrders.value.forEach(order => {
+                let formatted: OrderData = {
+                    title: order.title,
+                    amount: order.amount || 1,
+                    date: new Date().toLocaleString(),
+                    size: order.size || '',
+                    price: order.salePrice > 0 ? order.salePrice : order.price,
+
+                }
+                formattedOrders.push(formatted)
+            })
+
+            orders.makeOrder(formattedOrders)
+            // console.log(draftOrders.value)
+            router.push({ name: 'SummaryView' })
+            cart.cart = []
+        }
         onMounted(() => {
-            orders.value = cart.orders
+            draftOrders.value = cart.cart
         })
         return {
-            orders,
+            draftOrders,
             totalPriceSum,
-            totalDiscountSum
+            totalDiscountSum,
+            madeOrder
         }
     }
 
@@ -52,7 +75,7 @@ export default defineComponent({
             </div>
 
             <div class="mb-5 flex flex-col sm:mb-8 sm:divide-y sm:border-t sm:border-b">
-                <cart-item v-for="order in orders" :key="order.id" :data="order" />
+                <cart-item v-for="order in draftOrders" :key="order.id" :data="order" />
             </div>
 
             <!-- totals - start -->
@@ -79,7 +102,7 @@ export default defineComponent({
                     </div>
                 </div>
 
-                <button
+                <button @click="madeOrder()"
                     class="inline-block rounded-lg bg-success px-8 py-3 text-center text-sm font-semibold text-white outline-none  transition duration-100 hover:bg-secondary focus-visible:ring active:bg-secondary md:text-black">Check
                     out</button>
             </div>

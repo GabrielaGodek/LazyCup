@@ -4,18 +4,17 @@ import { Order, CartState, localCartStorage } from '@/utils/types';
 export const useCartStore = defineStore('cart', {
   state: (): CartState => {
     return{
-    orders: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? [],
-    // orders: [] as Order[]
+    cart: JSON.parse(localStorage.getItem(localCartStorage) as string) ?? [],
   }
 },
   getters: {
-      getCart(state: { orders: any; }){
-          return state.orders
+      getCart(state: { cart: any; }){
+          return state.cart
         }
     },
   actions: {
     addItem(product: Order): void {
-      this.orders.push(product);
+      this.cart.push(product);
     }
   },
 })

@@ -1,0 +1,31 @@
+{
+  "name": "lazycup",
+  "version": "1.0.0",
+  "description": "Single Page Application that allows you to buy your favorite coffee without waiting in long line at coffeehouse.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GabrielaGodek/LazyCup.git"
+  },
+  "keywords": [
+    "SPA",
+    "Fullstack app",
+    "typescript",
+    "vue",
+    "nodejs",
+    "mysql",
+    "docker"
+  ],
+  "author": "Gabriela Godek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GabrielaGodek/LazyCup/issues"
+  },
+  "homepage": "https://github.com/GabrielaGodek/LazyCup#readme",
+  "devDependencies": {
+    "markdown-notes-tree": "^1.13.0"
+  }
+}

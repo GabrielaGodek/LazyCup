@@ -22,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'CartView',
         component: () => import('../views/Cart.vue')
     },
+    {
+        path: '/summary',
+        name: 'SummaryView',
+        component: () => import('../views/Summary.vue')
+    },
 
 ];
 
